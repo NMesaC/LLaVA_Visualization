@@ -27,6 +27,15 @@ class CLIPVisionTower(nn.Module):
             return
 
         self.image_processor = CLIPImageProcessor.from_pretrained(self.vision_tower_name)
+        """
+        Visualization Code Start
+        """
+        # print(self.image_processor.do_normalize) # Prints true raw
+        self.image_processor.do_normalize = False
+        # We'll check in the cli function if the result is colored normally
+        """
+        Visualization Code End
+        """
         self.vision_tower = CLIPVisionModel.from_pretrained(self.vision_tower_name, device_map=device_map)
         self.vision_tower.requires_grad_(False)
 
@@ -44,6 +53,29 @@ class CLIPVisionTower(nn.Module):
 
     @torch.no_grad()
     def forward(self, images):
+        # """
+        # Visualization Code Start
+        # NOTE: From testing, this image has already been heavily preprocessed
+        # """
+        # from PIL import Image
+        # from torchvision import transforms
+        # def tensor_to_pil(tensor):
+        #     # Remove batch dimension if it exists
+        #     if tensor.ndim == 4:
+        #         tensor = tensor.squeeze(0)
+
+        #     # If the tensor is on the GPU, bring it back to the CPU
+        #     tensor = tensor.cpu()
+
+        #     # Convert to PIL Image
+        #     image = transforms.ToPILImage()(tensor)
+        #     return image
+        # pil_image = tensor_to_pil(images)
+        # pil_image.save("drakengard_3.jpg")
+        # print(self.vision_tower.vision_model.embeddings.patch_size) # Prints 14 <=> Patch Size
+        """
+        Visualization Code End
+        """
         if type(images) is list:
             image_features = []
             for image in images:
