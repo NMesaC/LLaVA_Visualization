@@ -56,48 +56,51 @@ def main(args):
         roles = conv.roles
 
     image = load_image(args.image_file)
-    """
-    Visualization Code Start
-    """
-    import numpy as np
-    import matplotlib.pyplot as plt
     image_size = image.size
     # Similar operation in model_worker.py
     image_tensor = process_images([image], image_processor, model.config)
-    # Chunking time
-    np_img = image_tensor.squeeze(0).permute(1, 2, 0).cpu().numpy()
-    rows, cols, _ = np_img.shape
-    patch_size = 14
+    """
+    Visualization Code Start
+    """
+    # import numpy as np
+    # import matplotlib.pyplot as plt
+    # image_size = image.size
+    # # Similar operation in model_worker.py
+    # image_tensor = process_images([image], image_processor, model.config)
+    # # Chunking time
+    # np_img = image_tensor.squeeze(0).permute(1, 2, 0).cpu().numpy()
+    # rows, cols, _ = np_img.shape
+    # patch_size = 14
 
-    # Pad image to make sure it's divisible by patch_size
-    pad_rows = (patch_size - rows % patch_size) % patch_size
-    pad_cols = (patch_size - cols % patch_size) % patch_size
-    np_img = np.pad(np_img, ((0, pad_rows), (0, pad_cols), (0, 0)), mode='constant', constant_values=0)
+    # # Pad image to make sure it's divisible by patch_size
+    # pad_rows = (patch_size - rows % patch_size) % patch_size
+    # pad_cols = (patch_size - cols % patch_size) % patch_size
+    # np_img = np.pad(np_img, ((0, pad_rows), (0, pad_cols), (0, 0)), mode='constant', constant_values=0)
 
-    patches = []
-    for i in range(0, np_img.shape[0], patch_size):
-        for j in range(0, np_img.shape[1], patch_size):
-            patch = np_img[i:i+patch_size, j:j+patch_size, :]
-            patches.append(patch)
+    # patches = []
+    # for i in range(0, np_img.shape[0], patch_size):
+    #     for j in range(0, np_img.shape[1], patch_size):
+    #         patch = np_img[i:i+patch_size, j:j+patch_size, :]
+    #         patches.append(patch)
 
-    # Calculate grid size
-    num_patches = len(patches)
-    grid_size = int(np.ceil(np.sqrt(num_patches)))
+    # # Calculate grid size
+    # num_patches = len(patches)
+    # grid_size = int(np.ceil(np.sqrt(num_patches)))
 
-    fig, axes = plt.subplots(grid_size, grid_size, figsize=(10, 10))
-    axes = axes.flatten()
+    # fig, axes = plt.subplots(grid_size, grid_size, figsize=(10, 10))
+    # axes = axes.flatten()
 
-    for idx, patch in enumerate(patches):
-        axes[idx].imshow(patch)
-        axes[idx].axis('off')
+    # for idx, patch in enumerate(patches):
+    #     axes[idx].imshow(patch)
+    #     axes[idx].axis('off')
 
-    # Hide unused subplots
-    for idx in range(len(patches), len(axes)):
-        axes[idx].axis('off')
+    # # Hide unused subplots
+    # for idx in range(len(patches), len(axes)):
+    #     axes[idx].axis('off')
 
-    plt.tight_layout()
-    plt.savefig("nmh2")
-    exit(0)
+    # plt.tight_layout()
+    # plt.savefig("nmh2")
+    # exit(0)
 
     """
     Visualization Code End
