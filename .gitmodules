@@ -1,0 +1,6 @@
+[submodule "llava/visualization/llava/visualization/gScoreCAM"]
+	path = llava/visualization/llava/visualization/gScoreCAM
+	url = https://github.com/anguyen8/gScoreCAM.git
+[submodule "llava/visualization/gScoreCAM"]
+	path = llava/visualization/gScoreCAM
+	url = https://github.com/anguyen8/gScoreCAM.git
